@@ -446,6 +446,14 @@
             min-height: 100vh;
             padding: 6rem 2rem 2rem;
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            z-index: 1000;
+            overflow-y: auto;
         }
         
         .gallery-grid {
@@ -654,39 +662,49 @@
         </section>
         
         <!-- Capture Section with Gallery Preview -->
-        <div class="gallery-preview">
-    <div class="preview-item">
-        <img src="https://shreniek.github.io/Personal_Website/images/1.jpeg" alt="Photography">
-    </div>
-    <div class="preview-item">
-        <img src="https://shreniek.github.io/Personal_Website/images/2.jpeg" alt="Photography">
-    </div>
-    <div class="preview-item more-photos" id="open-gallery">
-        View All
-    </div>
-</div>
+        <section class="capture-section" id="capture">
+            <div class="container">
+                <h2 class="capture-title">CaPtuRe</h2>
+                
+                <!-- Gallery Preview -->
+                <div class="gallery-preview">
+                    <div class="preview-item">
+                        <img src="https://shreniek.github.io/Personal_Website/images/1.jpeg" alt="Photography">
+                    </div>
+                    <div class="preview-item">
+                        <img src="https://shreniek.github.io/Personal_Website/images/2.jpeg" alt="Photography">
+                    </div>
+                    <div class="preview-item more-photos" id="open-gallery">
+                        View All
+                    </div>
                 </div>
             </div>
         </section>
     </div>
     
     <!-- Gallery Page -->
-    <div class="gallery-grid">
-    <div class="gallery-item">
-        <img src="https://shreniek.github.io/Personal_Website/images/1.jpeg" alt="Photography">
-    </div>
-    <div class="gallery-item">
-        <img src="https://shreniek.github.io/Personal_Website/images/2.jpeg" alt="Photography">
-    </div>
-    <div class="gallery-item">
-        <img src="https://shreniek.github.io/Personal_Website/images/3.jpeg" alt="Photography">
-    </div>
-    <div class="gallery-item">
-        <img src="https://shreniek.github.io/Personal_Website/images/4.jpeg" alt="Photography">
-    </div>
-    <div class="gallery-item">
-        <img src="https://shreniek.github.io/Personal_Website/images/5.jpeg" alt="Photography">
-    </div>
+    <div id="gallery-page" class="gallery-page">
+        <button class="back-button" id="back-button">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        
+        <div class="gallery-grid">
+            <!-- Gallery Items -->
+            <div class="gallery-item">
+                <img src="https://shreniek.github.io/Personal_Website/images/1.jpeg" alt="Photography">
+            </div>
+            <div class="gallery-item">
+                <img src="https://shreniek.github.io/Personal_Website/images/2.jpeg" alt="Photography">
+            </div>
+            <div class="gallery-item">
+                <img src="https://shreniek.github.io/Personal_Website/images/3.jpeg" alt="Photography">
+            </div>
+            <div class="gallery-item">
+                <img src="https://shreniek.github.io/Personal_Website/images/4.jpeg" alt="Photography">
+            </div>
+            <div class="gallery-item">
+                <img src="https://shreniek.github.io/Personal_Website/images/5.jpeg" alt="Photography">
+            </div>
             <div class="gallery-item">
                 <img src="https://source.unsplash.com/random/500x500/?food,5" alt="Food photo">
             </div>
@@ -767,26 +785,33 @@
             const mainPage = document.getElementById('main-page');
             const galleryPage = document.getElementById('gallery-page');
             
-            // Make all preview items open the gallery
-            document.querySelectorAll('.preview-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    mainPage.style.display = 'none';
-                    galleryPage.style.display = 'block';
-                    window.scrollTo(0, 0);
+            // Check if the gallery elements exist before adding event listeners
+            if (openGallery && galleryPage) {
+                // Make all preview items open the gallery
+                document.querySelectorAll('.preview-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        if (mainPage) mainPage.style.display = 'none';
+                        galleryPage.style.display = 'block';
+                        window.scrollTo(0, 0);
+                    });
                 });
-            });
+            }
             
-            backButton.addEventListener('click', function() {
-                galleryPage.style.display = 'none';
-                mainPage.style.display = 'block';
-                
-                // Scroll to capture section
-                const captureSection = document.getElementById('capture');
-                window.scrollTo({
-                    top: captureSection.offsetTop,
-                    behavior: 'smooth'
+            if (backButton && galleryPage && mainPage) {
+                backButton.addEventListener('click', function() {
+                    galleryPage.style.display = 'none';
+                    mainPage.style.display = 'block';
+                    
+                    // Scroll to capture section
+                    const captureSection = document.getElementById('capture');
+                    if (captureSection) {
+                        window.scrollTo({
+                            top: captureSection.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
                 });
-            });
+            }
             
             // Fix for social icons on mobile
             const socialIcons = document.querySelectorAll('.social-icon');
