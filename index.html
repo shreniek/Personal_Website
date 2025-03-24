@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shreneek Upadhye - Data Scientist and Food Photographer">
+    <title>Shreneek Upadhye</title>
+
+    
+    <!-- Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    
+    <!-- Import Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        /* Base Styles */
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --accent-color: #4a76b8;
+            --secondary-color: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 5rem 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        
+        /* Loader Styles */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .loader-logo {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        
+        .loader-logo span {
+            color: var(--accent-color);
+        }
+        
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background-color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loader-bar:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background-color: var(--accent-color);
+            animation: loading 2s forwards cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 2rem 0;
+        }
+        
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .name {
+            font-size: 2.2rem;
+            font-weight: 400;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        /* MODIFIED: Terminal Typewriter effect for Data Scientist */
+        .profession {
+    position: relative;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 1rem;
+    font-weight: 400;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid #ff5c8f;
+    margin: 0;
+    letter-spacing: 0.1em;
+    color: #ff5c8f; /* Luxurious pink color */
+    animation: typing 3.5s steps(16) infinite, blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    0% { width: 0 }
+    50% { width: 16ch }
+    70% { width: 16ch }
+    100% { width: 0 }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #ff5c8f }
+}
+        
+        /* Social Icons */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 2rem;
+        }
+        
+        .social-icon {
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            opacity: 1;
+        }
+        
+        /* GitHub - white (or slight off-white for better visibility) */
+        .social-icon.github {
+            color: #f0f6fc;
+        }
+        .social-icon.github:hover {
+            color: #f0f6fc;
+        }
+        
+        /* LinkedIn - blue */
+        .social-icon.linkedin {
+            color: #0A66C2;
+        }
+        .social-icon.linkedin:hover {
+            color: #0A66C2;
+        }
+        
+        /* Instagram - gradient (using a color that represents the brand) */
+        .social-icon.instagram {
+            color: #E4405F;
+        }
+        .social-icon.instagram:hover {
+            color: #E4405F;
+        }
+        
+        /* Email - standard red */
+        .social-icon.email {
+            color: #EA4335;
+        }
+        .social-icon.email:hover {
+            color: #EA4335;
+        }
+        
+        /* Scroll Arrow */
+        .scroll-arrow {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: var(--accent-color);
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            z-index: 10;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+        
+        /* Home Section */
+        .home {
+            text-align: center;
+        }
+        
+        /* About Section */
+        .about {
+            text-align: center;
+        }
+        
+        .about-content {
+            margin-top: 4rem;
+            text-align: left;
+        }
+        
+        .about-text {
+            max-width: 700px;
+            margin: 0 auto;
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            line-height: 1.4;
+        }
+        
+        .section-title {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        /* Skills Section */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 700px;
+            margin: 3rem auto 0;
+            gap: 1rem;
+        }
+        
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            background-color: rgba(74, 118, 184, 0.15);
+            border: 1px solid rgba(74, 118, 184, 0.3);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            background-color: rgba(74, 118, 184, 0.3);
+        }
+        
+        .skill-tag i {
+            font-size: 1rem;
+        }
+        
+        /* Projects Section */
+        .projects {
+            text-align: center;
+        }
+        
+        .projects-content {
+            margin-top: 4rem;
+        }
+        
+        .projects-list {
+            margin: 3rem 0;
+        }
+        
+        .project-item {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .project-item:nth-child(1) {
+            margin-left: 20%;
+        }
+        
+        .project-item:nth-child(2) {
+            margin-left: 10%;
+        }
+        
+        .project-item:nth-child(3) {
+            margin-left: 50%;
+        }
+        
+        .project-item:nth-child(4) {
+            margin-left: 30%;
+        }
+        
+        .project-title {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+        
+        .project-link {
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Capture Section */
+        .capture-section {
+            text-align: left;
+            padding-left: 10%;
+        }
+        
+        .capture-title {
+            font-family: 'Caveat', cursive;
+            font-size: 5rem;
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .capture-title:hover {
+            color: var(--accent-color);
+            transform: scale(1.05);
+        }
+        
+        /* Gallery Preview */
+        .gallery-preview {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .preview-item {
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .preview-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .more-photos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(74, 118, 184, 0.2);
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .more-photos:hover {
+            background-color: rgba(74, 118, 184, 0.4);
+        }
+        
+        /* Gallery Page */
+        .gallery-page {
+            min-height: 100vh;
+            padding: 6rem 2rem 2rem;
+            display: none;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background-color: #222;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            font-size: 1.2rem;
+            z-index: 100;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .back-button:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Updated Project Styles for Better Alignment */
+        .projects {
+            text-align: left;
+            position: relative;
+        }
+        
+        .projects-list {
+            margin: 5rem 0;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .project-item {
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-left: 0; /* Reset any margin-left */
+        }
+        
+        /* Reset margin-left for all project items */
+        .project-item:nth-child(1),
+        .project-item:nth-child(2),
+        .project-item:nth-child(3),
+        .project-item:nth-child(4) {
+            margin-left: 0;
+        }
+        
+        .project-title {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            margin-right: 1rem;
+            line-height: 1.2;
+        }
+        
+        .project-link {
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-logo">Shreneek<span>.</span></div>
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div id="main-page">
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <div class="title-section">
+                    <div class="name">
+                      <span style="color: #FF9933;">श्रे</span><span style="color: #FFFFFF;">णी</span><span style="color: #138808;">क</span>
+                    </div>
+                    <div class="profession">Data Scientist</div>
+                </div>
+            </div>
+        </header>
+            
+        <!-- Home Section -->
+        <section class="home" id="home">
+            <div class="container">
+                <div class="social-icons">
+                    <a href="https://github.com/shreniek" target="_blank" class="social-icon github">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/shreniek" target="_blank" class="social-icon linkedin">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://instagram.com/shreneek_" target="_blank" class="social-icon instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="mailto:shreneek.de@gmail.com" class="social-icon email">
+                        <i class="far fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <a href="#about" class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </section>
+        
+        <!-- About Section -->
+        <section class="about" id="about">
+            <div class="container">
+                <h2 class="section-title">About</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        I'm a Data Scientist, Photographer, Teacher, Tech enthusiast based in <span style="background: linear-gradient(to bottom, #000000 33%, #DD0000 33%, #DD0000 66%, #FFCE00 66%); -webkit-background-clip: text; color: transparent; font-weight: 500;">Berlin</span>. I love creating AI solutions and capturing beautiful moments.
+                    </div>
+                </div>
+                
+                <!-- Skills Section -->
+                <div class="skills-container">
+                    <div class="skill-tag"><i class="fab fa-python"></i> Python</div>
+                    <div class="skill-tag"><i class="fas fa-brain"></i> TensorFlow</div>
+                    <div class="skill-tag"><i class="fas fa-fire"></i> PyTorch</div>
+                    <div class="skill-tag"><i class="fas fa-database"></i> SQL</div>
+                    <div class="skill-tag"><i class="fas fa-chart-bar"></i> Data Visualization</div>
+                    <div class="skill-tag"><i class="fas fa-project-diagram"></i> NLP</div>
+                    <div class="skill-tag"><i class="fas fa-cogs"></i> MLOps</div>
+                    <div class="skill-tag"><i class="fas fa-cloud"></i> AWS</div>
+                    <div class="skill-tag"><i class="fas fa-microscope"></i> Medical Imaging</div>
+                </div>
+            </div>
+            <a href="#projects" class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </section>
+        
+        <!-- Projects Section with Fixed Alignment -->
+        <section class="projects" id="projects">
+            <div class="container">
+                <div class="projects-list">
+                    <div class="project-item">
+                        <div class="project-title">Customer Churn Prediction</div>
+                        <a href="https://github.com/shreniek" target="_blank" class="project-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="project-item">
+                        <div class="project-title">Explainable AI for Laparoscopic Imaging</div>
+                        <a href="https://github.com/shreniek" target="_blank" class="project-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="project-item">
+                        <div class="project-title">Knee MRI Analysis</div>
+                        <a href="https://github.com/shreniek" target="_blank" class="project-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="project-item">
+                        <div class="project-title">Healthcare Data Pipeline</div>
+                        <a href="https://github.com/shreniek" target="_blank" class="project-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    <div style="text-align: center; margin-top: 50px; width: 100%;">
+                        <p style="font-family: 'Papyrus', 'Fantasy'; font-size: 0.8rem; letter-spacing: 1px; color: #ffcc00; font-weight: 300;">
+                            still under construction 🚧 
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#capture" class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </section>
+        
+        <!-- Capture Section with Gallery Preview -->
+        <section class="capture-section" id="capture">
+            <div class="container">
+                <h2 class="capture-title">CaPtuRe</h2>
+                
+                <!-- Gallery Preview -->
+                <div class="gallery-preview">
+                    <div class="preview-item">
+                        <img src="https://source.unsplash.com/random/500x500/?food,1" alt="Food photo preview">
+                    </div>
+                    <div class="preview-item">
+                        <img src="https://source.unsplash.com/random/500x500/?food,2" alt="Food photo preview">
+                    </div>
+                    <div class="preview-item">
+                        <img src="https://source.unsplash.com/random/500x500/?food,3" alt="Food photo preview">
+                    </div>
+                    <div class="preview-item more-photos" id="open-gallery">
+                        View All
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Gallery Page -->
+    <div id="gallery-page" class="gallery-page">
+        <button class="back-button" id="back-button">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        
+        <div class="gallery-grid">
+            <!-- 20 Gallery Items -->
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,1" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,2" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,3" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,4" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,5" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,6" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,7" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,8" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,9" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,10" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,11" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,12" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,13" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,14" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,15" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,16" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,17" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,18" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,19" alt="Food photo">
+            </div>
+            <div class="gallery-item">
+                <img src="https://source.unsplash.com/random/500x500/?food,20" alt="Food photo">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loader after page loads
+            setTimeout(function() {
+                document.querySelector('.loader').classList.add('hidden');
+            }, 2000);
+            
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Gallery navigation
+            const openGallery = document.getElementById('open-gallery');
+            const backButton = document.getElementById('back-button');
+            const mainPage = document.getElementById('main-page');
+            const galleryPage = document.getElementById('gallery-page');
+            
+            // Make all preview items open the gallery
+            document.querySelectorAll('.preview-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    mainPage.style.display = 'none';
+                    galleryPage.style.display = 'block';
+                    window.scrollTo(0, 0);
+                });
+            });
+            
+            backButton.addEventListener('click', function() {
+                galleryPage.style.display = 'none';
+                mainPage.style.display = 'block';
+                
+                // Scroll to capture section
+                const captureSection = document.getElementById('capture');
+                window.scrollTo({
+                    top: captureSection.offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Fix for social icons on mobile
+            const socialIcons = document.querySelectorAll('.social-icon');
+            socialIcons.forEach(icon => {
+                icon.addEventListener('touchstart', function() {
+                    // This empty handler ensures the click works on mobile
+                });
+            });
+        });
+    </script>
+</body>
+</html>
